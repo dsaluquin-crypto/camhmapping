@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,7 +13,7 @@
   --teal:#0072BC;--teal2:#1CABE2;--tealL:#E6F4FB;--tealB:#9DD3EE;--tealM:#1CABE2;
   --amber:#E35F14;--amberL:#FEF0E7;--amberB:#F7C3A2;--amberT:#A8410A;--plum:#6A1E74;
   --grey:#DDE3E8;--sea:#F2F7FB;--head:#003F72;--headT:#FFFFFF;--headM:#CFE3F2;--warn:#C2410C;
-  --no:#F9C9A8;--unsure:#DDE3E8;
+  --no:#F9C9A8;--unsure:#DDE3E8;--heading:#003F72;
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
@@ -22,7 +22,7 @@
     --teal:#5BC0EB;--teal2:#1CABE2;--tealL:#11324A;--tealB:#1F5A80;--tealM:#1CABE2;
     --amber:#F28C4E;--amberL:#3A2414;--amberB:#6B3A1C;--amberT:#F6B48A;--plum:#B57BC0;
     --grey:#2A3A4A;--sea:#132433;--head:#06243F;--headT:#FFFFFF;--headM:#A9C6DE;--warn:#F28C4E;
-    --no:#6B3A1C;--unsure:#2A3A4A;
+    --no:#6B3A1C;--unsure:#2A3A4A;--heading:#E6EDF3;
   }
 }
 :root[data-theme="dark"]{
@@ -30,7 +30,7 @@
     --teal:#5BC0EB;--teal2:#1CABE2;--tealL:#11324A;--tealB:#1F5A80;--tealM:#1CABE2;
     --amber:#F28C4E;--amberL:#3A2414;--amberB:#6B3A1C;--amberT:#F6B48A;--plum:#B57BC0;
     --grey:#2A3A4A;--sea:#132433;--head:#06243F;--headT:#FFFFFF;--headM:#A9C6DE;--warn:#F28C4E;
-    --no:#6B3A1C;--unsure:#2A3A4A;
+    --no:#6B3A1C;--unsure:#2A3A4A;--heading:#E6EDF3;
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:border-box}
@@ -68,7 +68,7 @@ h1,h2,h3{margin:0}
 .pad{padding:24px}
 @media (max-width:700px){.pad{padding:18px}}
 .section{margin-top:16px}
-.h2{font-family:'Noto Sans',Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;line-height:1.25;color:var(--head)}
+.h2{font-family:'Noto Sans',Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;line-height:1.25;color:var(--heading)}
 .sub{font-size:14px;color:var(--muted);margin-top:4px}
 .kpi{padding:20px 22px;display:flex;flex-direction:column;gap:4px}
 .kpi b{font-family:'Noto Sans',Arial,Helvetica,sans-serif;font-size:42px;font-weight:800;line-height:1.1;color:var(--teal)}
@@ -426,7 +426,7 @@ function actMatches(a,c){
 }
 function opt(v,l,cur){return `<option value="${esc(v)}"${v===cur?' selected':''}>${esc(l)}</option>`}
 function vCommitments(){
-  return `<section class="wrap" style="padding-top:40px;padding-bottom:20px"><h1 class="serif" style="font-size:clamp(30px,4vw,40px);font-weight:800;color:var(--head)">Commitment tracker</h1>
+  return `<section class="wrap" style="padding-top:40px;padding-bottom:20px"><h1 class="serif" style="font-size:clamp(30px,4vw,40px);font-weight:800;color:var(--heading)">Commitment tracker</h1>
   <p class="muted" style="margin:10px 0 0;font-size:17px;max-width:820px">Every commitment, and every stage it has reached. Open a commitment to see its activities and who funds them.</p></section>
   <section class="wrap"><form class="card filters" id="filters" role="search" onsubmit="return false">
     <label class="f">Search<input class="fsel" type="search" name="q" placeholder="Commitment, activity or funder" value="${esc(F.q)}"></label>
@@ -479,7 +479,7 @@ function vCommitment(id){
   <section class="wrap grid g3" style="padding-top:16px;padding-bottom:28px;gap:32px">
     <div class="span2" style="display:flex;flex-direction:column;gap:14px">
       <div style="display:flex;gap:10px;align-items:center;font-size:14px"><span class="badge">${c.iso}</span><span style="font-weight:600">${esc(COUNTRIES[c.iso].name)}</span></div>
-      <h1 class="serif" style="font-size:clamp(30px,4vw,42px);line-height:1.15;font-weight:800;color:var(--head)">${esc(c.title)}</h1>
+      <h1 class="serif" style="font-size:clamp(30px,4vw,42px);line-height:1.15;font-weight:800;color:var(--heading)">${esc(c.title)}</h1>
       <p class="muted" style="margin:0;font-size:17px;line-height:1.55">${esc(c.summary)}</p>
     </div>
     <div class="card" style="padding:4px 24px;display:flex;flex-direction:column;justify-content:space-evenly;font-size:16px">
@@ -520,7 +520,7 @@ function vCountry(iso){
   const fb=fundingBars(acts);
   return `<section style="background:var(--sea);padding:36px 0 28px"><div class="wrap" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
     <div style="display:flex;flex-direction:column;gap:8px"><div class="muted" style="font-size:14px"><a href="#/">Overview</a> / Countries</div>
-      <h1 class="serif" style="font-size:clamp(34px,5vw,48px);font-weight:800;color:var(--head)">${esc(ct.name)}</h1>
+      <h1 class="serif" style="font-size:clamp(34px,5vw,48px);font-weight:800;color:var(--heading)">${esc(ct.name)}</h1>
       <div class="muted" style="font-size:14px;display:flex;gap:18px;flex-wrap:wrap"><span>Region: ${esc(ct.region)}</span><span>Income group: ${esc(ct.income)}</span></div></div>
     <label class="f" style="width:280px;max-width:100%">Switch country<select class="fsel" id="cswitch">${Object.entries(COUNTRIES).sort((a,b)=>a[1].name.localeCompare(b[1].name)).map(([k,v])=>opt(k,v.name,iso)).join('')}</select></label>
   </div></section>
